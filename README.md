@@ -1,3 +1,15 @@
+# Reproduction: sections sharing a key hide each other on PHP 8.6
+
+- `app/Filament/Pages/SectionVisibility.php`: two `Section`s with the same `statePath('details')` and `hiddenWhenAllChildComponentsHidden()`. The first has only hidden children, the second has a visible field.
+- `tests/Feature/SectionVisibilityTest.php`: passes on PHP 8.5, fails on PHP 8.6 (both sections are rendered hidden).
+
+```bash
+composer install && cp .env.example .env && php artisan key:generate
+php vendor/bin/phpunit tests/Feature/SectionVisibilityTest.php
+```
+
+---
+
 # Filament issue reproduction template
 
 A minimal Laravel + Filament application for reproducing bugs you would like to file at [`filamentphp/filament`](https://github.com/filamentphp/filament/issues).
